@@ -1,15 +1,14 @@
 {
-	"name": "@mmstudio/atom",
+	"name": "@mmstudio/an000014",
 	"version": "1.0.0",
-	"description": "",
+	"description": "sql查询",
 	"scripts": {
 		"test": "tsc && ava ./tests/*.js",
 		"watch": "tsc -w & ava --watch ./tests/*.js",
 		"clean": "del-cli ./dist/",
 		"lint": "eslint ./src/**/*.ts",
 		"compile": "tsc",
-		"build": "npm run lint && npm run compile",
-		"up": "git pull git@gitee.com:mmstudio/base.git atom-nodejs"
+		"build": "npm run lint && npm run compile"
 	},
 	"repository": {
 		"type": "git",
@@ -27,7 +26,8 @@
 		"框架"
 	],
 	"author": {
-		"name": ""
+		"name": "taoqf",
+		"email": "tao_qf@163.com"
 	},
 	"maintainers": [
 		{
