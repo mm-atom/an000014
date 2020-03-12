@@ -3,10 +3,14 @@ import config from '@mmstudio/config';
 import global from '@mmstudio/global';
 import { getLogger } from 'log4js';
 import Pool from 'pg-pool';
-import { Client } from 'pg';
+import { Client, types } from 'pg';
 import { createPool, createPoolCluster, Pool as MPool } from 'mariadb';
 
 const logger = getLogger();
+
+types.setTypeParser(types.builtins.INT8, (v) => {
+	return BigInt(v);
+});
 
 /**
  * sql语句查询

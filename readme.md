@@ -14,6 +14,44 @@ ts返回类型最大20个,如果超过20个，可直接`as`
 
 在进行业务开发时，需要首先确定数据库类型，否则sql有非常大的可能性是无法兼容的。
 
+### long类型
+
+postgres数据库中的长整型转换到js中，类型为`BigInt`,比较小的数值最好设置其类型为`smallint`即可。
+
+`BigInt`与`number`类型计算时，需要将`number`转换为`BigInt`后进行。几种转换方法：
+
+1. `BigInt`to`number`.一般无须进行这种转换，因为有可能会因长度不够而失败
+
+	```ts
+	function b2n(v: BigInt){
+		return parseInt(v.toString(), 10);
+	}
+	```
+
+1. `number`to`BigInt`
+
+	```ts
+	function n2b(v: number){
+		return BigInt(v);
+	}
+	```
+
+1. `string`to`BigInt`
+
+	```ts
+	function n2b(v: string){
+		return BigInt(v);
+	}
+	```
+
+1. `BigInt`to`string`
+
+	```ts
+	function n2b(v: BigInt){
+		return v.toString();
+	}
+	```
+
 ### 参数占位符
 
 注意两种数据库的参数占位符不同
