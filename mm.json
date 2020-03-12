@@ -1,0 +1,12 @@
+{
+	"dbs": {
+		"db001": {
+			"type": "postgres",
+			"source": "postgres://mmstudio:Mmstudio123@127.0.0.1:5432/mmstudio"
+		},
+		"db002": {
+			"type": "mariadb",
+			"source": "mysql://mmstudio:Mmstudio123@127.0.0.1:3306/mmstudio?connectionLimit=5"
+		}
+	}
+}

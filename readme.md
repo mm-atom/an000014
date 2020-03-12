@@ -1,1 +1,137 @@
 # sql查询
+
+数据库查询
+
+## 数据库类型
+
+支持mysql,postgres,mariadb
+
+ts返回类型最大20个,如果超过20个，可直接`as`
+
+## 注意事项
+
+### 需要先确定数据库类型
+
+在进行业务开发时，需要首先确定数据库类型，否则sql有非常大的可能性是无法兼容的。
+
+### 参数占位符
+
+注意两种数据库的参数占位符不同
+
+数据库类型|占位符|示例
+---|---|---
+mysql|`$`|$1,$2,$3
+mariadb|`$`|$1,$2,$3
+postgres|`?`|?,?,?
+
+简单进行二者转换可以使用以下方法：
+
+1. ? to $
+
+	```ts
+	function tran(v: string){
+		let i = 0;
+		return v.replace(/\?/g, (it)=>{
+			return `$${++it}`;
+		});
+	}
+	```
+
+1. $ to ?
+
+	```ts
+	function tran(v: string){
+		let i = 0;
+		return v.replace(/$\d/g, ()=>{
+			return '?';
+		});
+	}
+	```
+
+之所以不在该原子操作中做统一处理是因为很难完美实现，需要进行语法语义分析才行，所以需要开发人员自行处理。
+
+## 配置
+
+mm.json
+
+```json
+{
+	"dbs": {
+		"db001": {
+			"type": "postgres",
+			"source": "postgres://mmstudio:Mmstudio123@127.0.0.1:5432/mmstudio"
+		},
+		"db002": {
+			"type": "mariadb",
+			"source": "mysql://mmstudio:Mmstudio123@127.0.0.1:3306/mmstudio?connectionLimit=5"
+		},
+		"db003": {
+			"type": "mariadb",
+			"source": [
+				"mysql://mmstudio:Mmstudio123@127.0.0.1:3306/mmstudio?connectionLimit=5",
+				"mysql://mmstudio:Mmstudio123@127.0.0.1:3307/mmstudio?connectionLimit=5",
+				"mysql://mmstudio:Mmstudio123@127.0.0.1:3308/mmstudio?connectionLimit=5"
+			]
+		}
+	}
+}
+```
+
+### 说明
+
+1. 项目下的配置会在部署时被覆盖
+1. 配置文件名固定mm.json，且须放置在项目根目录
+1. dbs下的名称`db001`,`db002`,`db003`视具体情况配置，个数不定，简单项目使用一个数据库亦可。
+1. `type`目前只支持`postgres`和`mariadb`两种，`mariadb`与mysql通用
+1. `mariadb`支持主从节点配置如`db003`,配置项的第一个将作为主节点
+
+## docker-compose
+
+[docker-compose安置](https://download.daocloud.io/Docker_Mirror/Docker_Compose)
+
+```sh
+[sudo] docker-compose -f db.yaml up
+```
+
+db.yaml
+
+```yaml
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    volumes:
+      - /home/taoqf/data/postgre:/var/lib/postgresql/data
+    restart: always
+    environment:
+      POSTGRES_DB: mmstudio
+      POSTGRES_USER: mmstudio
+      POSTGRES_PASSWORD: Mmstudio123
+    ports:
+      - 5432:5432
+
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    volumes:
+      - /home/taoqf/data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: mmstudio
+      MYSQL_USER: mmstudio
+      MYSQL_PASSWORD: Mmstudio123
+      MYSQL_ROOT_PASSWORD: Mmstudio123
+    ports:
+      - 3306:3306
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+# networks:
+#   default:
+```

@@ -36,8 +36,20 @@
 		}
 	],
 	"license": "MIT",
-	"dependencies": {},
+	"peerDependencies": {
+		"@mmstudio/config": "*",
+		"@mmstudio/global": "*",
+		"log4js": "*"
+	},
+	"dependencies": {
+		"mariadb": "2.2.0",
+		"pg": "7.18.2",
+		"pg-pool": "2.0.10"
+	},
 	"devDependencies": {
+		"@mmstudio/config": "latest",
+		"@mmstudio/global": "latest",
+		"@types/pg-pool": "latest",
 		"@typescript-eslint/eslint-plugin": "latest",
 		"@typescript-eslint/parser": "latest",
 		"ava": "latest",
@@ -45,6 +57,8 @@
 		"eslint": "latest",
 		"eslint-config-prettier": "latest",
 		"eslint-plugin-import": "latest",
+		"log4js": "latest",
+		"minio": "latest",
 		"typescript": "next"
 	}
 }
