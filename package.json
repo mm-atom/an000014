@@ -8,13 +8,15 @@
 		"clean": "del-cli ./dist/",
 		"lint": "eslint ./src/**/*.ts",
 		"compile": "tsc",
-		"build": "npm run lint && npm run compile"
+		"build": "npm run clean && npm run lint && npm run compile"
 	},
 	"repository": {
-		"type": "git",
-		"url": "https://github.com/mm-atom/an000014"
+		"type": "https+git",
+		"url": "https://github.com/mm-atom/an000014.git"
 	},
 	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"keywords": [
 		"mm",
 		"mmstudio",
