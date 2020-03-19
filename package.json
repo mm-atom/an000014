@@ -51,6 +51,7 @@
 	"devDependencies": {
 		"@mmstudio/config": "latest",
 		"@mmstudio/global": "latest",
+		"@types/minio": "latest",
 		"@types/pg-pool": "latest",
 		"@typescript-eslint/eslint-plugin": "latest",
 		"@typescript-eslint/parser": "latest",
