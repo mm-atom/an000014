@@ -4,7 +4,11 @@ tests/
 src/
 mm.json
 tsconfig.json
+<<<<<<< HEAD
 .eslintignore
+=======
+.eslintignore 
+>>>>>>> 6c1fed94ea75d1a137cfafd66bfe33c0916eb190
 .eslintrc.json
 .gitignore
 .npmignore
