@@ -5,7 +5,7 @@
 	const [r$CURRENT_SECONDS_UNIX] = await(() => {
 		const p1 = $1;	// 配置文件中数据库的名称
 		const p21 = '$2';	// sql
-		const p22 = [];	// 参数,需与sql中占位符(mysql中为?,postgres中为$n)相对应
+		const p22 = [];	// 参数,需与sql中占位符(mysql中为?,postgres中为\\$)相对应
 		return an14<${3:{}}>(p1, [p21, p22]);
 		// return an14<T1, T2>(p1, [p21, p22], [p31, p32]);
 		// const p2 = [
