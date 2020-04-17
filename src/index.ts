@@ -15,13 +15,13 @@ types.setTypeParser(types.builtins.INT8, (v) => {
 /**
  * sql语句查询
  */
-export default function sql_query<T1 = {}, T2 = {}, T3 = {}, T4 = {}, T5 = {}, T6 = {}, T7 = {}, T8 = {}, T9 = {}, T10 = {}, T11 = {}, T12 = {}, T13 = {}, T14 = {}, T15 = {}, T16 = {}, T17 = {}, T18 = {}, T19 = {}, T20 = {}>(db: string, ...sqls: [string, unknown[]][]): Promise<[T1[], T2[], T3[], T4[], T5[], T6[], T7[], T8[], T9[], T10[], T11[], T12[], T13[], T14[], T15[], T16[], T17[], T18[], T19[], T20[]]> {
+export default function sql_query<T1 = {}, T2 = {}, T3 = {}, T4 = {}, T5 = {}, T6 = {}, T7 = {}, T8 = {}, T9 = {}, T10 = {}, T11 = {}, T12 = {}, T13 = {}, T14 = {}, T15 = {}, T16 = {}, T17 = {}, T18 = {}, T19 = {}, T20 = {}>(db: string, ...sqls: [string, unknown[]][]) {
 	const conf = config.dbs[db];
 	switch (conf.type) {
 		case 'postgres':
-			return postgres_sql(db, sqls, conf.source as string) as any;
+			return postgres_sql(db, sqls, conf.source as string) as Promise<[T1[], T2[], T3[], T4[], T5[], T6[], T7[], T8[], T9[], T10[], T11[], T12[], T13[], T14[], T15[], T16[], T17[], T18[], T19[], T20[]]>;
 		case 'mariadb':
-			return mariadb_sql(db, sqls, conf.source) as any;
+			return mariadb_sql(db, sqls, conf.source) as Promise<[T1[], T2[], T3[], T4[], T5[], T6[], T7[], T8[], T9[], T10[], T11[], T12[], T13[], T14[], T15[], T16[], T17[], T18[], T19[], T20[]]>;
 		default:
 			throw new Error(`not supported dbtype:${conf.type}. all supported db types are: [postgres,mariadb]`);
 	}
