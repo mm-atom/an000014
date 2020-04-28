@@ -29,7 +29,7 @@ test('postgres query', async (t) => {
 test('postgres count', async (t) => {
 	const [r] = await a('db001', ['select count(*) as cnt from tb001']);
 	console.error('11111', r);
-	t.is(r[0].cnt, '3');
+	t.is(r[0].cnt, 3n);
 });
 
 test('mariadb query', async (t) => {
