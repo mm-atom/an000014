@@ -1,11 +1,13 @@
 	// sql查询
 	/**
-	 * ${0:变量注释}
+	 * ${0:数据库返回值}
 	 */
 	const [r$CURRENT_SECONDS_UNIX] = await(() => {
-		const p1 = $1;	// 配置文件中数据库的名称
-		const p21 = '$2';	// sql
-		const p22 = [];	// 参数,需与sql中占位符(mysql中为?,postgres中为\\$)相对应
+		const p1 = '$1';	// 配置文件mm.json中数据库的dbs中配置的数据库名称，如db001,sys等
+		const p21 = '$2';	// sql，示例见下:
+		// postgres:	insert into tb001 (name) values (\$1),(\$2),(\$3);
+		// mysql:		insert into tb001 (name) values (?),(?),(?);
+		const p22 = [] as unknown[];	// sql中点位符使用的参数值，如果有参数，请删除as unknown[]部分代码。示例:['mmstudio001', 'mmstudio002', 'mmstudio003']
 		return an14<${3:{}}>(p1, [p21, p22]);
 		// return an14<T1, T2>(p1, [p21, p22], [p31, p32]);
 		// const p2 = [
