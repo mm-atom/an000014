@@ -4,7 +4,7 @@
 	"description": "sql查询",
 	"scripts": {
 		"test": "tsc && ava ./tests/*.js",
-		"watch": "tsc -w & ava --watch ./tests/*.js",
+		"dev": "tsc -w & ava --watch ./tests/*.js",
 		"clean": "del-cli ./dist/",
 		"lint": "eslint ./src/**/*.ts",
 		"compile": "tsc",
@@ -43,12 +43,12 @@
 	"peerDependencies": {
 		"@mmstudio/config": "*",
 		"@mmstudio/global": "*",
-		"log4js": "*"
+		"anylogger": "*"
 	},
 	"dependencies": {
-		"mariadb": "2.3.1",
-		"pg": "8.0.3",
-		"pg-pool": "3.1.1"
+		"mariadb": "2.5.2",
+		"pg": "8.5.1",
+		"pg-pool": "3.2.2"
 	},
 	"devDependencies": {
 		"@mmstudio/config": "latest",
@@ -57,6 +57,7 @@
 		"@types/pg-pool": "latest",
 		"@typescript-eslint/eslint-plugin": "latest",
 		"@typescript-eslint/parser": "latest",
+		"anylogger": "latest",
 		"ava": "latest",
 		"del-cli": "latest",
 		"eslint": "latest",

@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    volumes:
+      - /home/taoqf/data/postgre:/var/lib/postgresql/data
+    restart: always
+    environment:
+      POSTGRES_DB: mmstudio
+      POSTGRES_USER: mmstudio
+      POSTGRES_PASSWORD: Mmstudio123
+    ports:
+      - 5432:5432
+
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    volumes:
+      - /home/taoqf/data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: mmstudio
+      MYSQL_USER: mmstudio
+      MYSQL_PASSWORD: Mmstudio123
+      MYSQL_ROOT_PASSWORD: Mmstudio123
+    ports:
+      - 3306:3306
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+# networks:
+#   default:

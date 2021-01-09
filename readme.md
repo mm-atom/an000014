@@ -52,42 +52,6 @@ postgres数据库中的长整型转换到js中，类型为`BigInt`,比较小的�
 	}
 	```
 
-### 参数占位符
-
-注意两种数据库的参数占位符不同
-
-数据库类型|占位符|示例
----|---|---
-mysql|`?`|?,?,?
-mariadb|`?`|?,?,?
-postgres|`$`|$1,$2,$3
-
-简单进行二者转换可以使用以下方法：
-
-1. ? to $
-
-	```ts
-	function tran(v: string){
-		let i = 0;
-		return v.replace(/\?/g, (it)=>{
-			return `$${++it}`;
-		});
-	}
-	```
-
-1. $ to ?
-
-	```ts
-	function tran(v: string){
-		let i = 0;
-		return v.replace(/$\d/g, ()=>{
-			return '?';
-		});
-	}
-	```
-
-之所以不在该原子操作中做统一处理是因为很难完美实现，需要进行语法语义分析才行，所以需要开发人员自行处理。
-
 ## 配置
 
 mm.json
@@ -125,7 +89,7 @@ mm.json
 
 ## docker-compose
 
-[docker-compose安置](https://download.daocloud.io/Docker_Mirror/Docker_Compose)
+[docker-compose安装](https://download.daocloud.io/Docker_Mirror/Docker_Compose)
 
 ```sh
 [sudo] docker-compose -f db.yaml up
