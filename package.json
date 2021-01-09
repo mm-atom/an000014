@@ -1,6 +1,6 @@
 {
 	"name": "@mmstudio/an000014",
-	"version": "1.0.202010211513",
+	"version": "1.0.202010211514",
 	"description": "sql查询",
 	"scripts": {
 		"test": "tsc && ava ./tests/*.js",
