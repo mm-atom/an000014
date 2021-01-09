@@ -12,21 +12,23 @@ types.setTypeParser(types.builtins.INT8, (v) => {
 	return BigInt(v);
 });
 
+type BaseTable = Record<string, unknown>;
+
 /**
  * sql语句查询
  */
-export default function sql_query<T1 = {}, T2 = {}, T3 = {}, T4 = {}, T5 = {}, T6 = {}, T7 = {}, T8 = {}, T9 = {}, T10 = {}, T11 = {}, T12 = {}, T13 = {}, T14 = {}, T15 = {}, T16 = {}, T17 = {}, T18 = {}, T19 = {}, T20 = {}>(db: string, ...sqls: [string, unknown[]][]) {
+export default function sql_query<T1 = BaseTable, T2 = BaseTable, T3 = BaseTable, T4 = BaseTable, T5 = BaseTable, T6 = BaseTable, T7 = BaseTable, T8 = BaseTable, T9 = BaseTable, T10 = BaseTable, T11 = BaseTable, T12 = BaseTable, T13 = BaseTable, T14 = BaseTable, T15 = BaseTable, T16 = BaseTable, T17 = BaseTable, T18 = BaseTable, T19 = BaseTable, T20 = BaseTable>(db: string, ...sqls: [string, unknown[]][]): Promise<[T1[], T2[], T3[], T4[], T5[], T6[], T7[], T8[], T9[], T10[], T11[], T12[], T13[], T14[], T15[], T16[], T17[], T18[], T19[], T20[]]> {
 	const dbs = config.dbs as Record<string, {
-		type: 'postgres' | 'mariadb' | 'mysql';
+		type: 'postgres' | 'mariadb' | 'mysql' | string;
 		source: string | string[];
 	}>;
 	const conf = dbs[db];
 	switch (conf.type) {
 		case 'postgres':
-			return postgres_sql(db, sqls, conf.source as string) as Promise<[T1[], T2[], T3[], T4[], T5[], T6[], T7[], T8[], T9[], T10[], T11[], T12[], T13[], T14[], T15[], T16[], T17[], T18[], T19[], T20[]]>;
+			return postgres_sql(db, sqls, conf.source as string) as unknown as Promise<[T1[], T2[], T3[], T4[], T5[], T6[], T7[], T8[], T9[], T10[], T11[], T12[], T13[], T14[], T15[], T16[], T17[], T18[], T19[], T20[]]>;
 		case 'mysql':
 		case 'mariadb':
-			return mariadb_sql(db, sqls, conf.source) as Promise<[T1[], T2[], T3[], T4[], T5[], T6[], T7[], T8[], T9[], T10[], T11[], T12[], T13[], T14[], T15[], T16[], T17[], T18[], T19[], T20[]]>;
+			return mariadb_sql(db, sqls, conf.source) as unknown as Promise<[T1[], T2[], T3[], T4[], T5[], T6[], T7[], T8[], T9[], T10[], T11[], T12[], T13[], T14[], T15[], T16[], T17[], T18[], T19[], T20[]]>;
 		default:
 			throw new Error(`not supported dbtype:${conf.type}. all supported db types are: [postgres,mariadb]`);
 	}
@@ -38,7 +40,7 @@ async function mariadb_sql(db: string, sqls: [string, unknown[]][], source: stri
 	const client = await pool.getConnection();
 	try {
 		const ret = await Promise.all(sqls.map(([sql, values]) => {
-			return client.query(sql, values);
+			return client.query(sql, values) as unknown as [unknown];
 		}));
 		logger.debug('postgres sqlquery result:', ret);
 		return ret;
@@ -88,7 +90,7 @@ async function postgres_sql(db: string, sqls: [string, unknown[]][], source: str
 	try {
 		const ret = await Promise.all(sqls.map(async ([sql, values]) => {
 			const r = await client.query(position_bindings(sql), values);
-			return r.rows;
+			return r.rows as [unknown];
 		}));
 		logger.debug('postgres sqlquery result:', ret);
 		return ret;
